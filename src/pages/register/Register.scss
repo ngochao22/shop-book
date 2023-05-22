@@ -1,0 +1,19 @@
+.container {
+    max-width: 35rem;
+    margin: 0 auto;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2rem 2.5rem;
+}
+
+.text {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #121212;
+}
+
+.text-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #121212;
+}
