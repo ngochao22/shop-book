@@ -15,7 +15,6 @@ const Login = () => {
         setIsLoading(true);
         const res = await callLogin(username, password);
         setIsLoading(false);
-        console.log(res);
         if (res?.data?.user) {
             localStorage.setItem("access_token", res.data.access_token);
             dispatch(doLoginAction(res.data.user));
