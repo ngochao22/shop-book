@@ -22,11 +22,24 @@ export const accountSlice = createSlice({
         },
         doGetAccountAction: (state, action) => {
             state.isAuthenticated = true;
-            state.user = action.payload;
+            state.user = action.payload.user;
+        },
+        doLogoutAction: (state) => {
+            localStorage.removeItem("access_token");
+            state.isAuthenticated = false;
+            state.user = {
+                email: "",
+                phone: "",
+                fullName: "",
+                role: "",
+                avatar: "",
+                id: "",
+            };
         },
     },
 });
 
-export const { doLoginAction, doGetAccountAction } = accountSlice.actions;
+export const { doLoginAction, doGetAccountAction, doLogoutAction } =
+    accountSlice.actions;
 
 export default accountSlice.reducer;
