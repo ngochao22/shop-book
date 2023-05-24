@@ -1,25 +1,24 @@
 import { Divider, Form, Input, Modal, message, notification } from "antd";
-import React, { useState } from "react";
-import { callCreateUser } from "../../../services/api";
+import React, { useEffect, useState } from "react";
+import { callUpdateUser } from "../../../services/api";
 
-const UserModalCreate = ({
-    openModalCreate,
-    setOpenModalCreate,
+const UserModalUpdate = ({
+    openModalUpdate,
+    setOpenModalUpdate,
+    dataUpdate,
     fetchUser,
 }) => {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false);
 
     const onFinish = async (values) => {
-        const { fullName, email, password, phone } = values;
+        const { _id, fullName, phone } = values;
         setIsLoading(true);
-        const res = await callCreateUser(fullName, email, password, phone);
+        const res = await callUpdateUser(_id, fullName, phone);
         setIsLoading(false);
-        if (res.data) {
-            setOpenModalCreate(false);
-            message.success("Tạo mới user thành công");
-            form.resetFields();
-            fetchUser();
+        if (res && res.data) {
+            message.success("Cập nhật thành công");
+            await fetchUser();
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
@@ -31,15 +30,19 @@ const UserModalCreate = ({
             });
         }
     };
+
+    useEffect(() => {
+        form.setFieldsValue(dataUpdate);
+    }, [dataUpdate]);
     return (
         <>
             <Modal
-                title="Thêm mới người dùng"
-                open={openModalCreate}
+                title="Cập nhật người dùng"
+                open={openModalUpdate}
                 onOk={() => form.submit()}
-                onCancel={() => setOpenModalCreate(false)}
-                okText={"Tạo mới"}
-                cancelText={"Hủy"}
+                onCancel={() => setOpenModalUpdate(false)}
+                okText="Cập nhật"
+                cancelText="Hủy"
                 confirmLoading={isLoading}
             >
                 <Divider></Divider>
@@ -52,12 +55,26 @@ const UserModalCreate = ({
                 >
                     <Form.Item
                         labelCol={{ span: 24 }}
+                        label="Id"
+                        name={"_id"}
+                        rules={[
+                            {
+                                required: true,
+                                message: "Vui lòng nhập id",
+                            },
+                        ]}
+                        hidden
+                    >
+                        <Input></Input>
+                    </Form.Item>
+                    <Form.Item
+                        labelCol={{ span: 24 }}
                         label="Tên hiển thị"
                         name={"fullName"}
                         rules={[
                             {
                                 required: true,
-                                message: "Vui lòng nhập tên hiển thị!",
+                                message: "Vui lòng nhập tên hiển thị",
                             },
                         ]}
                     >
@@ -70,24 +87,11 @@ const UserModalCreate = ({
                         rules={[
                             {
                                 required: true,
-                                message: "Vui lòng nhập Email!",
+                                message: "Vui lòng nhập email",
                             },
                         ]}
                     >
-                        <Input></Input>
-                    </Form.Item>
-                    <Form.Item
-                        labelCol={{ span: 24 }}
-                        label="Mật khẩu"
-                        name={"password"}
-                        rules={[
-                            {
-                                required: true,
-                                message: "Vui lòng nhập mật khẩu!",
-                            },
-                        ]}
-                    >
-                        <Input></Input>
+                        <Input disabled></Input>
                     </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}
@@ -96,7 +100,7 @@ const UserModalCreate = ({
                         rules={[
                             {
                                 required: true,
-                                message: "Vui lòng nhập số điện thoại!",
+                                message: "Vui lòng nhập số điện thoại",
                             },
                         ]}
                     >
@@ -108,4 +112,4 @@ const UserModalCreate = ({
     );
 };
 
-export default UserModalCreate;
+export default UserModalUpdate;

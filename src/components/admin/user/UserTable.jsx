@@ -1,16 +1,19 @@
-import { Button, Col, Row, Table } from "antd";
+import {
+    Button,
+    Col,
+    Popconfirm,
+    Row,
+    Table,
+    message,
+    notification,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import UserInput from "./UserInput";
-import {
-    DeleteOutlined,
-    EditOutlined,
-    ExportOutlined,
-    CloudUploadOutlined,
-    PlusOutlined,
-} from "@ant-design/icons";
-import { callGetListUser } from "../../../services/api";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { callDeleteUser, callGetListUser } from "../../../services/api";
 import UserViewDetail from "./UserViewDetail";
 import UserModalCreate from "./UserModalCreate";
+import UserModalUpdate from "./UserModalUpdate";
 
 const UserTable = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -20,8 +23,9 @@ const UserTable = () => {
     const [total, setTotal] = useState(0);
     const [openViewDetail, setOpenViewDetail] = useState(false);
     const [dataViewDetail, setDataViewDetail] = useState([]);
-    const [openModalImport, setOpenModalImport] = useState(false);
     const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [openModalUpdate, setOpenModalUpdate] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState([]);
 
     const fetchUser = async (searchFilter) => {
         setIsLoading(true);
@@ -40,6 +44,21 @@ const UserTable = () => {
     useEffect(() => {
         fetchUser();
     }, [current, pageSize]);
+
+    const onConfirm = async (userId) => {
+        const res = await callDeleteUser(userId);
+        console.log(res);
+        if (res.data) {
+            message.success("xóa user thành công");
+            fetchUser();
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description: res.message,
+                duration: 5,
+            });
+        }
+    };
 
     const columns = [
         {
@@ -80,9 +99,22 @@ const UserTable = () => {
             render: (text, record, index) => {
                 return (
                     <>
-                        <DeleteOutlined style={{ color: "red" }} />
+                        <Popconfirm
+                            title="Xác nhận xóa user"
+                            placement="leftTop"
+                            description="Bạn có chắc chắn muốn xóa user này ?"
+                            onConfirm={() => onConfirm(record._id)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <DeleteOutlined style={{ color: "red" }} />
+                        </Popconfirm>
                         <EditOutlined
                             style={{ color: "orange", marginLeft: "25px" }}
+                            onClick={() => {
+                                setOpenModalUpdate(true);
+                                setDataUpdate(record);
+                            }}
                         />
                     </>
                 );
@@ -110,16 +142,6 @@ const UserTable = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>Table List User</span>
                 <span style={{ display: "flex", gap: 15 }}>
-                    <Button icon={<ExportOutlined />} type="primary">
-                        Export
-                    </Button>
-                    <Button
-                        icon={<CloudUploadOutlined />}
-                        type="primary"
-                        onClick={() => setOpenModalImport(true)}
-                    >
-                        Import
-                    </Button>
                     <Button
                         icon={<PlusOutlined />}
                         type="primary"
@@ -167,6 +189,13 @@ const UserTable = () => {
                 setOpenModalCreate={setOpenModalCreate}
                 fetchUser={fetchUser}
             ></UserModalCreate>
+
+            <UserModalUpdate
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                dataUpdate={dataUpdate}
+                fetchUser={fetchUser}
+            ></UserModalUpdate>
         </>
     );
 };
