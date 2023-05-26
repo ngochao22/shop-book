@@ -13,6 +13,7 @@ import LayoutAdmin from "./components/layout/LayoutAdmin";
 import AdminPage from "./pages/admin/AdminPage";
 import UserTable from "./components/admin/user/UserTable";
 import BookTable from "./components/admin/book/BookTable";
+import BookPage from "./pages/book/BookPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -42,6 +43,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Layout></Layout>}>
                         <Route index element={<Home></Home>}></Route>
+                        <Route
+                            path="/book/:slug"
+                            element={<BookPage></BookPage>}
+                        ></Route>
                     </Route>
                     <Route
                         path={"/admin"}

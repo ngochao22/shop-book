@@ -107,3 +107,7 @@ export const callUpdateBook = (
         slider,
     });
 };
+
+export const callGetBookDetail = (id) => {
+    return axios.get(`/api/v1/book/${id}`);
+};

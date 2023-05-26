@@ -71,7 +71,10 @@ const Header = () => {
                         >
                             ☰
                         </div>
-                        <div className="page-header__logo">
+                        <div
+                            className="page-header__logo"
+                            onClick={() => navigate("/")}
+                        >
                             <span className="logo">
                                 <FaReact className="rotate icon-react" />
                                 Shop Book
