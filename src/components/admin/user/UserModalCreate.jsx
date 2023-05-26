@@ -37,7 +37,9 @@ const UserModalCreate = ({
                 title="Thêm mới người dùng"
                 open={openModalCreate}
                 onOk={() => form.submit()}
-                onCancel={() => setOpenModalCreate(false)}
+                onCancel={() => {
+                    setOpenModalCreate(false);
+                }}
                 okText={"Tạo mới"}
                 cancelText={"Hủy"}
                 confirmLoading={isLoading}

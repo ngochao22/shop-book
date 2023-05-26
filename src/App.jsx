@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/notFound/NotFoundPage";
 import LayoutAdmin from "./components/layout/LayoutAdmin";
 import AdminPage from "./pages/admin/AdminPage";
 import UserTable from "./components/admin/user/UserTable";
+import BookTable from "./components/admin/book/BookTable";
 
 function App() {
     const dispatch = useDispatch();
@@ -50,6 +51,10 @@ function App() {
                         <Route
                             path="/admin/user"
                             element={<UserTable></UserTable>}
+                        ></Route>
+                        <Route
+                            path="/admin/book"
+                            element={<BookTable></BookTable>}
                         ></Route>
                     </Route>
                     <Route
