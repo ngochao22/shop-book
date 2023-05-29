@@ -43,7 +43,6 @@ const History = () => {
             render: (text, record, index) => (
                 <JsonView
                     src={record.detail}
-                    name="Chi tiết đơn mua hàng: "
                     enableClipboard={false}
                 ></JsonView>
             ),

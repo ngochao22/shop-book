@@ -201,7 +201,10 @@ const ViewDetail = ({ dataBook }) => {
                                                     currentQuantity,
                                                     dataBook
                                                 );
-                                                navigate("/order");
+                                                {
+                                                    isAuthenticated &&
+                                                        navigate("/order");
+                                                }
                                             }}
                                         >
                                             Mua ngay
