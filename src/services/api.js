@@ -111,3 +111,19 @@ export const callUpdateBook = (
 export const callGetBookDetail = (id) => {
     return axios.get(`/api/v1/book/${id}`);
 };
+
+export const callPlaceOrder = (data) => {
+    return axios.post("/api/v1/order", { ...data });
+};
+
+export const callHistoryOrder = () => {
+    return axios.get("/api/v1/history");
+};
+
+export const callDashboard = () => {
+    return axios.get("/api/v1/database/dashboard");
+};
+
+export const callGetListOrder = (query) => {
+    return axios.get(`/api/v1/order?${query}`);
+};

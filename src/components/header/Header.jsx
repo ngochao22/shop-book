@@ -1,5 +1,13 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Badge, Divider, Drawer, Dropdown, Space, message } from "antd";
+import {
+    Badge,
+    Divider,
+    Drawer,
+    Dropdown,
+    Popover,
+    Space,
+    message,
+} from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +26,7 @@ const Header = () => {
     const user = useSelector((state) => state.account.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const carts = useSelector((state) => state.order.carts);
 
     const handleLogout = async () => {
         const res = await callLogout();
@@ -49,6 +58,18 @@ const Header = () => {
             label: (
                 <label
                     style={{ cursor: "pointer" }}
+                    onClick={() => {
+                        navigate("/history");
+                    }}
+                >
+                    Lịch sử mua hàng
+                </label>
+            ),
+        },
+        {
+            label: (
+                <label
+                    style={{ cursor: "pointer" }}
                     onClick={() => handleLogout()}
                 >
                     Đăng xuất
@@ -57,6 +78,47 @@ const Header = () => {
             key: "logout",
         },
     ];
+
+    const content = () => {
+        return (
+            <>
+                {carts.length > 0 &&
+                    carts.map((item) => (
+                        <div className="view-container" key={item._id}>
+                            <div className="wrapper">
+                                <img
+                                    src={`${
+                                        import.meta.env.VITE_BACKEND_URL
+                                    }/images/book/${item.detail.thumbnail}`}
+                                    alt=""
+                                    className="image"
+                                />
+                                <div className="content">
+                                    <span className="title">
+                                        {item.detail.mainText}
+                                    </span>
+                                    <span className="price">
+                                        {new Intl.NumberFormat("vi-VN", {
+                                            style: "currency",
+                                            currency: "VND",
+                                        }).format(item.detail.price)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                <div className="btn-container">
+                    <button
+                        className="button"
+                        onClick={() => navigate("/order")}
+                    >
+                        Đến giỏ hàng
+                    </button>
+                </div>
+            </>
+        );
+    };
 
     return (
         <>
@@ -73,7 +135,9 @@ const Header = () => {
                         </div>
                         <div
                             className="page-header__logo"
-                            onClick={() => navigate("/")}
+                            onClick={() => {
+                                navigate("/");
+                            }}
                         >
                             <span className="logo">
                                 <FaReact className="rotate icon-react" />
@@ -90,9 +154,28 @@ const Header = () => {
                     <nav className="page-header__bottom">
                         <ul id="navigation" className="navigation">
                             <li className="navigation__item">
-                                <Badge count={5} size={"small"}>
-                                    <FiShoppingCart className="icon-cart" />
-                                </Badge>
+                                {isAuthenticated && carts.length > 0 ? (
+                                    <Popover
+                                        title="Sản phẩm mới thêm"
+                                        content={content}
+                                    >
+                                        <Badge
+                                            count={carts.length}
+                                            size={"small"}
+                                            showZero
+                                        >
+                                            <FiShoppingCart className="icon-cart" />
+                                        </Badge>
+                                    </Popover>
+                                ) : (
+                                    <Badge
+                                        count={carts.length}
+                                        size={"small"}
+                                        showZero
+                                    >
+                                        <FiShoppingCart className="icon-cart" />
+                                    </Badge>
+                                )}
                             </li>
                             <li className="navigation__item mobile">
                                 <Divider type="vertical" />

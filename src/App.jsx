@@ -14,6 +14,10 @@ import AdminPage from "./pages/admin/AdminPage";
 import UserTable from "./components/admin/user/UserTable";
 import BookTable from "./components/admin/book/BookTable";
 import BookPage from "./pages/book/BookPage";
+import OrderPage from "./pages/order/OrderPage";
+import History from "./pages/history/History";
+import Dashboard from "./components/admin/dashboard/Dashboard";
+import OrderTable from "./components/admin/order/OrderTable";
 
 function App() {
     const dispatch = useDispatch();
@@ -47,12 +51,20 @@ function App() {
                             path="/book/:slug"
                             element={<BookPage></BookPage>}
                         ></Route>
+                        <Route
+                            path="/order"
+                            element={<OrderPage></OrderPage>}
+                        ></Route>
+                        <Route
+                            path="/history"
+                            element={<History></History>}
+                        ></Route>
                     </Route>
                     <Route
                         path={"/admin"}
                         element={<LayoutAdmin></LayoutAdmin>}
                     >
-                        <Route index element={<AdminPage></AdminPage>}></Route>
+                        <Route index element={<Dashboard></Dashboard>}></Route>
                         <Route
                             path="/admin/user"
                             element={<UserTable></UserTable>}
@@ -60,6 +72,10 @@ function App() {
                         <Route
                             path="/admin/book"
                             element={<BookTable></BookTable>}
+                        ></Route>
+                        <Route
+                            path="/admin/order"
+                            element={<OrderTable></OrderTable>}
                         ></Route>
                     </Route>
                     <Route

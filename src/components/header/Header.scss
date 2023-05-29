@@ -152,3 +152,52 @@
         }
     }
 }
+
+.view-container {
+    margin-bottom: 10px;
+    .wrapper {
+        display: flex;
+        margin: 2px;
+        column-gap: 5px;
+
+        .image {
+            width: 100px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            .title {
+                font-size: 16px;
+                font-weight: 600;
+                color: #161616;
+            }
+
+            .price {
+                font-size: 16px;
+                font-weight: 400;
+                color: #5a5656;
+            }
+        }
+    }
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    padding: 12px 25px;
+    background: #f05d40;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    margin-top: 30px;
+
+    cursor: pointer;
+}

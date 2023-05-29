@@ -1,0 +1,84 @@
+.order-container {
+    .order-book {
+        margin: 10px 0;
+        display: flex;
+        background: white;
+        padding: 20px 25px;
+        border-radius: 8px;
+        justify-content: space-between;
+        gap: 20px;
+        .book-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            img {
+                width: 100px;
+                height: auto;
+            }
+
+            .title {
+                font-size: 16px;
+                font-weight: 600;
+                color: #161616;
+            }
+
+            .price {
+                font-size: 16px;
+                font-weight: 600;
+                color: #161616;
+            }
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+
+            .sum {
+                font-size: 16px;
+                font-weight: 600;
+                color: #161616;
+            }
+        }
+    }
+
+    .order-sum {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+
+        .calculate {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #161616;
+
+            .sum-final {
+                font-size: 20px;
+                color: #f05d40;
+            }
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 25px;
+            background: #f05d40;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            color: white;
+            font-weight: 500;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+    }
+
+    .order-steps {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+    }
+}

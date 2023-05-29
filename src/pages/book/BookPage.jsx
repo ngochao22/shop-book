@@ -10,8 +10,6 @@ const BookPage = () => {
     let params = new URLSearchParams(location.search);
     const id = params?.get("id");
 
-    console.log(">>> check book id: ", id);
-
     useEffect(() => {
         fetchBook(id);
     }, [id]);
