@@ -1,8 +1,8 @@
 import { Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
-import ReactJson from "react-json-view";
 import { callHistoryOrder } from "../../services/api";
 import moment from "moment";
+import ReactJson from "react-json-view";
 
 const History = () => {
     const [listHistoryOrder, setListHistoryOrder] = useState([]);
