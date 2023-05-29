@@ -2,7 +2,7 @@ import { Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import { callHistoryOrder } from "../../services/api";
 import moment from "moment";
-import ReactJson from "react-json-view";
+import JsonView from "react18-json-view";
 
 const History = () => {
     const [listHistoryOrder, setListHistoryOrder] = useState([]);
@@ -41,11 +41,11 @@ const History = () => {
             title: "Chi tiết",
             dataIndex: "detail",
             render: (text, record, index) => (
-                <ReactJson
+                <JsonView
                     src={record.detail}
                     name="Chi tiết đơn mua hàng: "
                     enableClipboard={false}
-                ></ReactJson>
+                ></JsonView>
             ),
         },
     ];
