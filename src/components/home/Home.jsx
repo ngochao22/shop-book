@@ -383,7 +383,12 @@ const Home = () => {
                                                 <div className="wrapper">
                                                     <div className="thumbnail">
                                                         <img
-                                                            src={`http://localhost:8080/images/book/${item.thumbnail}`}
+                                                            src={`${
+                                                                import.meta.env
+                                                                    .VITE_BACKEND_URL
+                                                            }/images/book/${
+                                                                item.thumbnail
+                                                            }`}
                                                             alt="thumbnail book"
                                                         />
                                                     </div>
